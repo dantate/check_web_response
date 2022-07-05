@@ -1,4 +1,10 @@
-#!/usr/bin/python3
+#!/usr/bin/python3 -O
+"""check_web_response.py - uses selenium and firefox webdriver to do a simple website response check and report back time
+and check vs crit/warn - intended for use with iCinga or Nagios.   """
+# (c) 2022 Daniel Tate
+# Intended for personal use, use at your own risk.  No promises, including regarding accuracy.
+# Build 005
+
 import argparse
 from time import perf_counter
 from selenium import webdriver
@@ -7,8 +13,15 @@ from selenium.webdriver import FirefoxOptions
 opts = FirefoxOptions()
 opts.add_argument("--headless")
 
-def run_check (sitein):
+if __debug__:
+    # We want the gecko log if in debug mode
     browser = webdriver.Firefox(options=opts)
+else:
+    browser = webdriver.Firefox(options=opts, service_log_path=os.devnull)
+
+
+def run_check (sitein):
+
     browser.get(sitein)
     browser.quit()
 
