@@ -3,7 +3,7 @@
 and check vs crit/warn - intended for use with iCinga or Nagios.   """
 # (c) 2022 Daniel Tate
 # Intended for personal use, use at your own risk.  No promises, including regarding accuracy.
-# Build 008
+# Build 009
 
 import argparse
 from time import perf_counter
@@ -35,6 +35,8 @@ def run_check (sitein):
     except:
         driver.close()
         driver.quit()
+        print(f"UNKNOWN: Browser Exception (check URL?)")
+        exit(3)
 
 
 def validate_normal(time):
