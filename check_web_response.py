@@ -3,7 +3,7 @@
 and check vs crit/warn - intended for use with iCinga or Nagios.   """
 # (c) 2022 Daniel Tate
 # Intended for personal use, use at your own risk.  No promises, including regarding accuracy.
-# Build 006
+# Build 007
 
 import argparse
 from time import perf_counter
@@ -50,15 +50,12 @@ parser.add_argument('-w', '--warn', help='Warning Threshold', type=int, required
 parser.add_argument('-s', '--site', help='site', required=True)
 args = parser.parse_args()
 
-if __debug__: print(f"DEBUG: site is {args.site}")
 tick = perf_counter()
-if __debug__: print(f"DEBUG: Site check commencing, Tick is {tick}")
 run_check(args.site)
 tock = perf_counter()
-if __debug__: print(f"DEBUG: Site check complete, tock is {tock}")
 clock = tock - tick
-if __debug__: print (f"DEBUG: Clock is {clock}")
 short_clock = float(f'{clock:.2f}')
-if __debug__: print(f"DEBUG: short_clock is {short_clock}")
 
 validate_normal(short_clock)
+#make sure it's dead..
+driver.quit()
