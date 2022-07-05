@@ -3,7 +3,7 @@
 and check vs crit/warn - intended for use with iCinga or Nagios.   """
 # (c) 2022 Daniel Tate
 # Intended for personal use, use at your own risk.  No promises, including regarding accuracy.
-# Build 007
+# Build 008
 
 import argparse
 from time import perf_counter
@@ -29,8 +29,13 @@ driver = webdriver.Firefox(
 
 def run_check (sitein):
 
-    driver.get(sitein)
-    driver.quit()
+    try:
+        driver.get(sitein)
+        driver.quit()
+    except:
+        driver.close()
+        driver.quit()
+
 
 def validate_normal(time):
     if (time < args.warn):
@@ -57,5 +62,3 @@ clock = tock - tick
 short_clock = float(f'{clock:.2f}')
 
 validate_normal(short_clock)
-#make sure it's dead..
-driver.quit()
