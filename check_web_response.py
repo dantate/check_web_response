@@ -3,27 +3,34 @@
 and check vs crit/warn - intended for use with iCinga or Nagios.   """
 # (c) 2022 Daniel Tate
 # Intended for personal use, use at your own risk.  No promises, including regarding accuracy.
-# Build 005
+# Build 006
 
 import argparse
 from time import perf_counter
 from selenium import webdriver
 from selenium.webdriver import FirefoxOptions
+from selenium.webdriver.firefox.service import Service as FirefoxService
+import os
 
 opts = FirefoxOptions()
+driver_path= '/bin/geckodriver'
+
 opts.add_argument("--headless")
 
 if __debug__:
-    # We want the gecko log if in debug mode
-    browser = webdriver.Firefox(options=opts)
+    service = FirefoxService(driver_path) # we want logs in debug mode
 else:
-    browser = webdriver.Firefox(options=opts, service_log_path=os.devnull)
+    service = FirefoxService(driver_path, log_path=os.devnull)
 
+driver = webdriver.Firefox(
+    service=service,
+    options=opts
+)
 
 def run_check (sitein):
 
-    browser.get(sitein)
-    browser.quit()
+    driver.get(sitein)
+    driver.quit()
 
 def validate_normal(time):
     if (time < args.warn):
