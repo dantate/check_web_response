@@ -3,7 +3,7 @@
 and check vs crit/warn - intended for use with iCinga or Nagios.   """
 # (c) 2022 Daniel Tate
 # Intended for personal use, use at your own risk.  No promises, including regarding accuracy.
-# Build 009
+# Build 010
 
 import argparse
 from time import perf_counter
